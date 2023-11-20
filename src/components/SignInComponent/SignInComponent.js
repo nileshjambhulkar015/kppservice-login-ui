@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SignInService from "../../services/SignInService";
 import {useParams, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export default function SignInComponent() {
     const [roleId, setRoleId] = useState('');
@@ -22,16 +23,18 @@ export default function SignInComponent() {
     const employeeLogin = (e) => {
 
         SignInService.employeeLogin(roleId,userName,userPassword ).then(res => {
-            window.sessionStorage.setItem('roleId', res.data.responseData.roleId);
-            localStorage.setItem('roleName', res.data.responseData.roleName);
-            localStorage.setItem('deptId', res.data.responseData.deptId);
-            localStorage.setItem('deptName', res.data.responseData.deptName);
-            localStorage.setItem('desigId', res.data.responseData.desigId);
-            localStorage.setItem('desigName', res.data.responseData.desigName);
-            localStorage.setItem('empEId', res.data.responseData.empEId);
-            localStorage.setItem('empFirstName', res.data.responseData.empFirstName);
-            localStorage.setItem('empMiddleName', res.data.responseData.empMiddleName);
-            localStorage.setItem('empLastName', res.data.responseData.empLastName);
+           
+            Cookies.set('empId', res.data.responseData.empId);
+            Cookies.set('roleId', res.data.responseData.roleId);
+            Cookies.set('roleName', res.data.responseData.roleName);
+            Cookies.set('deptId', res.data.responseData.deptId);
+            Cookies.set('deptName', res.data.responseData.deptName);
+            Cookies.set('desigId', res.data.responseData.desigId);
+            Cookies.set('desigName', res.data.responseData.desigName);
+            Cookies.set('empEId', res.data.responseData.empEId);
+            Cookies.set('empFirstName', res.data.responseData.empFirstName);
+            Cookies.set('empMiddleName', res.data.responseData.empMiddleName);
+            Cookies.set('empLastName', res.data.responseData.empLastName);
 
             if(roleId==1)  //for Employee
               window.location.replace("http://localhost:3006/");
