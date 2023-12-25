@@ -44,7 +44,7 @@ export default function SignInComponent() {
             
                  
               if(roleId==3)  //for GM
-              window.location.replace("http://localhost:3000/");
+              window.location.replace("http://localhost:3005/");
 
               if(roleId==4)  //for HR
               window.location.replace("http://localhost:3000/");
@@ -53,8 +53,6 @@ export default function SignInComponent() {
         ) .catch((err) => {
             alert(err.response.data.details)
          });
-        
-        ;
         // window.location.reload(); 
     }
 
