@@ -11,9 +11,9 @@ class SignInService{
     }
 
     //login employee based on role
-    employeeLogin(roleId,userName,userPassword){
+    employeeLogin(userName,userPassword){
 
-        return axios.get("http://localhost:9091/login?roleId="+roleId+"&userName="+userName+"&userPassword="+userPassword)
+        return axios.get("http://localhost:9091/login?userName="+userName+"&userPassword="+userPassword)
     }
 }
 
