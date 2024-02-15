@@ -7,11 +7,6 @@ export default function SignInComponent() {
     const [roleId, setRoleId] = useState('');
     const [userName, setUserName] = useState('');
     const [userPassword, setUserPassword] = useState('');
-   // const history=useHistory();
-   // const navigate = useNavigate();
-  
-
-  
 
     const employeeLogin = (e) => {
 
