@@ -59,7 +59,7 @@ export default function SignInComponent() {
                     <div className="form-group">
                         <label className="control-label col-sm-4" htmlFor="userPassword">Enter User Password:</label>
                         <div className="col-sm-8">
-                            <input type="text" className="form-control" id="userPassword" placeholder="Enter Passeord Name here" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
+                            <input type="password" className="form-control" id="userPassword" placeholder="Enter Passeord Name here" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
                         </div>
                     </div>
 
