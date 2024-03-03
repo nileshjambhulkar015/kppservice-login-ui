@@ -12,34 +12,38 @@ export default function SignInComponent() {
 
         SignInService.employeeLogin(userName,userPassword ).then(res => {
            
-            Cookies.set('empId', res.data.responseData.empId);
-            Cookies.set('roleId', res.data.responseData.roleId);
-            Cookies.set('roleName', res.data.responseData.roleName);
-            Cookies.set('deptId', res.data.responseData.deptId);
-            Cookies.set('deptName', res.data.responseData.deptName);
-            Cookies.set('desigId', res.data.responseData.desigId);
-            Cookies.set('desigName', res.data.responseData.desigName);
-            Cookies.set('empEId', res.data.responseData.empEId);
-            Cookies.set('empFirstName', res.data.responseData.empFirstName);
-            Cookies.set('empMiddleName', res.data.responseData.empMiddleName);
-            Cookies.set('empLastName', res.data.responseData.empLastName);
+            Cookies.set('empId', res?.data?.responseData?.empId);
+            Cookies.set('roleId', res?.data?.responseData?.roleId);
+            Cookies.set('roleName',res?.data?.responseData?.roleName);
+            Cookies.set('deptId', res?.data?.responseData?.deptId);
+            Cookies.set('deptName', res?.data?.responseData?.deptName);
+            Cookies.set('desigId', res?.data?.responseData?.desigId);
+            Cookies.set('desigName', res?.data?.responseData?.desigName);
+            Cookies.set('empEId', res?.data?.responseData?.empEId);
+            Cookies.set('empFirstName', res?.data?.responseData?.empFirstName);
+            Cookies.set('empMiddleName', res?.data?.responseData?.empMiddleName);
+            Cookies.set('empLastName', res?.data?.responseData?.empLastName);
 
-            if(res.data.responseData.roleId===1)  //for Employee
+            if(res.data.responseData.roleId===1)  //for GM
+            window.location.replace("http://localhost:3005/");
+
+           
+            if(res.data.responseData.roleId===3)  //for Employee
               window.location.replace("http://localhost:3006/");
 
               if(res.data.responseData.roleId===2)  //for HOD
               window.location.replace("http://localhost:3004/");
             
                  
-              if(res.data.responseData.roleId===3)  //for GM
-              window.location.replace("http://localhost:3005/");
+             
 
-              if(res.data.responseData.roleId===4)  //for HR
-              window.location.replace("http://localhost:3000/");
 
         }
+      
         ) .catch((err) => {
-            alert(err.response.data.details)
+            console.log("err=", err)
+          //  console.log(err.response.data.details)
+            alert(err?.response?.data?.details)
          });
         // window.location.reload(); 
     }
