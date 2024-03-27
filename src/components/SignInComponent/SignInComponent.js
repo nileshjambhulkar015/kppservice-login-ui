@@ -51,7 +51,7 @@ export default function SignInComponent() {
     return (
 
         <div className="row">
-        <div className="col-sm-8"></div>
+        <div className="col-sm-4"></div>
             <div className="col-sm-4">
             <div class="jumbotron">
             <h2 align="center">Login</h2>
