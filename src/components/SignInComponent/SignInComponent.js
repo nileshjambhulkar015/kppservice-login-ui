@@ -51,28 +51,30 @@ export default function SignInComponent() {
     return (
 
         <div className="row">
-        <h2 align="center">KPP Login</h2>
+        <div className="col-sm-8"></div>
             <div className="col-sm-4">
+            <div class="jumbotron">
+            <h2 align="center">Login</h2>
                 <form className="form-horizontal">
                     <div className="form-group">
-                        <label className="control-label col-sm-4" htmlFor="userName">Enter User Name:</label>
-                        <div className="col-sm-8">
+                        <label className="control-label col-sm-4" htmlFor="userName">User Name:</label>
+                        <div className="col-sm-5">
                             <input type="text" className="form-control" id="userName" placeholder="Enter User Name here" value={userName} onChange={(e) => setUserName(e.target.value)} />
                         </div>
                     </div>
                     <div className="form-group">
-                        <label className="control-label col-sm-4" htmlFor="userPassword">Enter User Password:</label>
-                        <div className="col-sm-8">
+                        <label className="control-label col-sm-4" htmlFor="userPassword">Password:</label>
+                        <div className="col-sm-5">
                             <input type="password" className="form-control" id="userPassword" placeholder="Enter Passeord Name here" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
                         </div>
                     </div>
 
                 </form>
-                <div className="col-sm-offset-8">
+                <div className="col-sm-offset-6">
                     <button type="submit" className="btn btn-success" data-dismiss="modal" onClick={() => employeeLogin(roleId,userName,userPassword)} > Submit</button>
                     <button type="reset" className="btn btn-danger col-sm-offset-1" data-dismiss="modal">Clear</button>
                 </div>
-
+                </div>
             </div>
             <div className="col-sm-1"></div>
         </div>

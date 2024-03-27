@@ -1,19 +1,17 @@
 import axios from "axios";
-
-const BASE_URL="http://localhost:9091/roles";
-
+import { BASE_URL_API } from "./URLConstants";
 
 class SignInService{
 
      //Get all roles present in designation table 
      getRolesInDesignation(){
-        return axios.get("http://localhost:9091/roles/designation/roles")
+        return axios.get(BASE_URL_API+"/roles/designation/roles")
     }
 
     //login employee based on role
     employeeLogin(userName,userPassword){
 
-        return axios.get("http://localhost:9091/login?userName="+userName+"&userPassword="+userPassword)
+        return axios.get(BASE_URL_API+"/login?userName="+userName+"&userPassword="+userPassword)
     }
 }
 
