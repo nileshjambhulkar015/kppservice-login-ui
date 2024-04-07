@@ -33,11 +33,6 @@ export default function SignInComponent() {
 
               if(res.data.responseData.roleId===2)  //for HOD
               window.location.replace("http://localhost:3004/");
-            
-                 
-             
-
-
         }
       
         ) .catch((err) => {
