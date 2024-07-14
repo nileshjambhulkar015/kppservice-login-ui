@@ -35,6 +35,16 @@ export default function SignInComponent() {
                 window.location.replace("http://localhost:3004/");
 
             /*if (res.data.responseData.roleId === 1) //for GM 
+                window.location.replace("http://localhost:8080/GM");
+
+            if (res.data.responseData.roleId === 3) //for Employee 
+            window.location.replace("http://localhost:8080/EMPLOYEE"); 
+
+                if (res.data.responseData.roleId === 2) //for HOD
+                    window.location.replace("http://localhost:8080/HOD");*/
+
+
+             /*if (res.data.responseData.roleId === 1) //for GM 
                 window.location.replace("http://192.162.3.51:8080/GM");
 
             if (res.data.responseData.roleId === 3) //for Employee 
@@ -42,7 +52,7 @@ export default function SignInComponent() {
 
                 if (res.data.responseData.roleId === 2) //for HOD
                     window.location.replace("http://192.162.3.51:8080/HOD");*/
-
+        
         }
 
         ).catch((err) => {
