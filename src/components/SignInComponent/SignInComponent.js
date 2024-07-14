@@ -10,11 +10,11 @@ export default function SignInComponent() {
 
     const employeeLogin = (e) => {
 
-        SignInService.employeeLogin(userName,userPassword ).then(res => {
-           
+        SignInService.employeeLogin(userName, userPassword).then(res => {
+
             Cookies.set('empId', res?.data?.responseData?.empId);
             Cookies.set('roleId', res?.data?.responseData?.roleId);
-            Cookies.set('roleName',res?.data?.responseData?.roleName);
+            Cookies.set('roleName', res?.data?.responseData?.roleName);
             Cookies.set('deptId', res?.data?.responseData?.deptId);
             Cookies.set('deptName', res?.data?.responseData?.deptName);
             Cookies.set('desigId', res?.data?.responseData?.desigId);
@@ -24,51 +24,61 @@ export default function SignInComponent() {
             Cookies.set('empMiddleName', res?.data?.responseData?.empMiddleName);
             Cookies.set('empLastName', res?.data?.responseData?.empLastName);
 
-            if(res.data.responseData.roleId===1)  //for GM
-            window.location.replace("http://localhost:3005/");
+            if (res.data.responseData.roleId === 1)  //for GM
+                window.location.replace("http://localhost:3005/");
 
-           
-            if(res.data.responseData.roleId===3)  //for Employee
-              window.location.replace("http://localhost:3006/");
 
-              if(res.data.responseData.roleId===2)  //for HOD
-              window.location.replace("http://localhost:3004/");
+            if (res.data.responseData.roleId === 3)  //for Employee
+                window.location.replace("http://localhost:3006/");
+
+            if (res.data.responseData.roleId === 2)  //for HOD
+                window.location.replace("http://localhost:3004/");
+
+            /*if (res.data.responseData.roleId === 1) //for GM 
+                window.location.replace("http://192.162.3.51:8080/GM");
+
+            if (res.data.responseData.roleId === 3) //for Employee 
+            window.location.replace("http://192.162.3.51:8080/EMPLOYEE"); 
+
+                if (res.data.responseData.roleId === 2) //for HOD
+                    window.location.replace("http://192.162.3.51:8080/HOD");*/
+
         }
-      
-        ) .catch((err) => {
+
+        ).catch((err) => {
             console.log("err=", err)
-          //  console.log(err.response.data.details)
+            //  console.log(err.response.data.details)
             alert(err?.response?.data?.details)
-         });
+        });
         // window.location.reload(); 
     }
 
     return (
 
         <div className="row">
-        <div className="col-sm-4"></div>
+            <div className="col-sm-4"></div>
             <div className="col-sm-4">
-            <div class="jumbotron">
-            <h2 align="center">Login</h2>
-                <form className="form-horizontal">
-                    <div className="form-group">
-                        <label className="control-label col-sm-4" htmlFor="userName">User Name:</label>
-                        <div className="col-sm-5">
-                            <input type="text" className="form-control" id="userName" placeholder="Enter User Name here" value={userName} onChange={(e) => setUserName(e.target.value)} />
+                <div class="jumbotron">
+                    <h2 align="center">Login</h2>
+                    <form className="form-horizontal">
+                        <div className="form-group">
+                            <label className="control-label col-sm-4" htmlFor="userName">User Name:</label>
+                            <div className="col-sm-5">
+                                <input type="text" className="form-control" id="userName" placeholder="Enter User Name here" value={userName} onChange={(e) => setUserName(e.target.value)} />
+                            </div>
                         </div>
-                    </div>
-                    <div className="form-group">
-                        <label className="control-label col-sm-4" htmlFor="userPassword">Password:</label>
-                        <div className="col-sm-5">
-                            <input type="password" className="form-control" id="userPassword" placeholder="Enter Passeord Name here" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
+                        <div className="form-group">
+                            <label className="control-label col-sm-4" htmlFor="userPassword">Password:</label>
+                            <div className="col-sm-5">
+                                <input type="password" className="form-control" id="userPassword" placeholder="Enter Passeord Name here" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
+                            </div>
                         </div>
-                    </div>
 
-                </form>
-                <div className="col-sm-offset-6">
-                    <button type="submit" className="btn btn-success" data-dismiss="modal" onClick={() => employeeLogin(roleId,userName,userPassword)} > Submit</button>
-                    <button type="reset" className="btn btn-danger col-sm-offset-1" data-dismiss="modal">Clear</button>
-                </div>
+                    </form>
+                    <div className="col-sm-offset-6">
+                        <button type="submit" className="btn btn-success" data-dismiss="modal" onClick={() => employeeLogin(roleId, userName, userPassword)} > Submit</button>
+                        <button type="reset" className="btn btn-danger col-sm-offset-1" data-dismiss="modal">Clear</button>
+                    </div>
                 </div>
             </div>
             <div className="col-sm-1"></div>
