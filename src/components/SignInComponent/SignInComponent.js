@@ -24,6 +24,7 @@ export default function SignInComponent() {
             Cookies.set('empFirstName', res?.data?.responseData?.empFirstName);
             Cookies.set('empMiddleName', res?.data?.responseData?.empMiddleName);
             Cookies.set('empLastName', res?.data?.responseData?.empLastName);
+            Cookies.set('empEmailId', res?.data?.responseData?.empEmailId);
 
             if (res.data.responseData.roleId === 1)  //for GM
                 window.location.replace("http://localhost:3005/");
