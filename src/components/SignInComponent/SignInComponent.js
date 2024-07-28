@@ -11,6 +11,7 @@ export default function SignInComponent() {
     const employeeLogin = (e) => {
 
         SignInService.employeeLogin(userName, userPassword).then(res => {
+            if (res.data.success) {   
 
             Cookies.set('empId', res?.data?.responseData?.empId);
             Cookies.set('roleId', res?.data?.responseData?.roleId);
@@ -54,6 +55,12 @@ export default function SignInComponent() {
                     window.location.replace("http://192.162.3.51:8080/HOD");*/
         
         }
+        else{
+            alert(res.data.responseMessage);
+            setUserPassword('');
+            setUserName('');
+        }
+    }
 
         ).catch((err) => {
             console.log("err=", err)
