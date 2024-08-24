@@ -13,6 +13,13 @@ class SignInService{
 
         return axios.get(BASE_URL_API+"/login?userName="+userName+"&userPassword="+userPassword)
     }
+
+
+    //load all meeting and bulletine
+    getAllMeeting() {      
+            return axios.get(BASE_URL_API+"/employee-meeting/all-meeting-id?statusCd=A")      
+    }
+
 }
 
 
