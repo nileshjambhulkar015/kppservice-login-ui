@@ -20,6 +20,11 @@ class SignInService{
             return axios.get(BASE_URL_API+"/employee-meeting/all-meeting-id?statusCd=A")      
     }
 
+    //when click on view button of UI
+    getMeetingById(meetingId) {
+            return axios.get(BASE_URL_API + `/employee-meeting/by-meeting-id?meetingId=${meetingId}&statusCd=A`)
+    }
+
 }
 
 

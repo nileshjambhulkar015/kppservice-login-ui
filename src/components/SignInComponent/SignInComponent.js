@@ -7,20 +7,76 @@ import back_v1 from "../../images/back_v1.jpg";
 import 'react-calendar/dist/Calendar.css';
 import '../../css/calendar.css'
 export default function SignInComponent() {
+    const [isSuccess, setIsSuccess] = useState(true)
     const [roleId, setRoleId] = useState('');
     const [userName, setUserName] = useState('');
     const [userPassword, setUserPassword] = useState('');
 
     const [meetings, setMeetings] = useState([])
 
+    const [meetId, setMeetId] = useState('');
+    const [meetStartDate, setMeetStartDate] = useState('');
+    const [meetEndDate, setMeetEndDate] = useState('');
+    const [meetCreatedByEmpId, setMeetCreatedByEmpId] = useState('');
+    const [meetCreatedByEmpEId, setMeetCreatedByEmpEId] = useState('');
+    const [meetCreatedByEmpName, setMeetCreatedByEmpName] = useState('');
+
+    const [meetCreatedByRoleId, setMeetCreatedByRoleId] = useState('');
+    const [meetCreatedByRoleName, setMeetCreatedByRoleName] = useState('');
+    const [meetCreatedByDeptId, setMeetCreatedByDeptId] = useState('');
+    const [meetCreatedByDeptName, setMeetCreatedByDeptName] = useState('');
+    const [meetCreatedByDesigId, setMeetCreatedByDesigId] = useState('');
+    const [meetCreatedByDesigName, setMeetCreatedByDesigName] = useState('');
+    const [meetVenue, setMeetVenue] = useState('');
+    const [meetTitle, setMeetTitle] = useState('');
+    const [meetDescription, setMeetDescription] = useState('');
+    const [meetStatus, setMeetStatus] = useState('');
+    const [remark, setRemark] = useState('');
+
+
     console.log(meetings)
-    useEffect(() => {
+
+    const loadAllMeetingData = ()=>{
         SignInService.getAllMeeting().then((res) => {
-            setMeetings(res.data);
-            console.log(res.data)
+            if (res.data.success) {
+                setIsSuccess(true);
+                setMeetings(res.data.responseData);
+          
+            } else {
+                setIsSuccess(false);
+            }
         });
+    }
+    useEffect(() => {
+        loadAllMeetingData();
+
     }, []);
 
+    const showMeetingById = (e) => {
+
+        SignInService.getMeetingById(e).then(res => {
+            let meeting = res.data;
+            setMeetId(meeting.meetId)
+            setMeetStartDate(meeting.meetStartDate)
+            setMeetEndDate(meeting.meetEndDate)
+            setMeetCreatedByEmpId(meeting.meetCreatedByEmpId)
+            setMeetCreatedByEmpEId(meeting.meetCreatedByEmpEId)
+            setMeetCreatedByEmpName(meeting.meetCreatedByEmpName)
+            setMeetCreatedByRoleId(meeting.meetCreatedByRoleId)
+            setMeetCreatedByRoleName(meeting.meetCreatedByRoleName)
+            setMeetCreatedByDeptId(meeting.meetCreatedByDeptId)
+            setMeetCreatedByDeptName(meeting.meetCreatedByDeptName)
+            setMeetCreatedByDesigId(meeting.meetCreatedByDesigId)
+            setMeetCreatedByDesigName(meeting.meetCreatedByDesigName)
+            setMeetVenue(meeting.meetVenue)
+            setMeetTitle(meeting.meetTitle)
+            setMeetDescription(meeting.meetDescription)
+            setMeetStatus(meeting.meetStatus)
+            setRemark(meeting.remark)
+
+        }
+        );
+    }
 
     const employeeLogin = (e) => {
 
@@ -40,7 +96,7 @@ export default function SignInComponent() {
                 Cookies.set('empLastName', res?.data?.responseData?.empLastName);
                 Cookies.set('empEmailId', res?.data?.responseData?.empEmailId);
 
-               
+
 
                 if (res.data.responseData.roleId === 1)  //for GM
                     window.location.replace("http://localhost:3001/");
@@ -52,7 +108,7 @@ export default function SignInComponent() {
                 if (res.data.responseData.roleId === 2)  //for HOD
                     window.location.replace("http://localhost:3004/");
 
-                    if (res.data.responseData.roleId === 4)  //for GM
+                if (res.data.responseData.roleId === 4)  //for GM
                     window.location.replace("http://localhost:3005/");
 
                 /*
@@ -103,7 +159,7 @@ export default function SignInComponent() {
         // window.location.reload(); 
     }
 
-
+    
 
 
 
@@ -111,27 +167,31 @@ export default function SignInComponent() {
 
         <div className="row container-fluid">
             <div className="row">
-            <div align="center">
-                <img src={logo} className='img-responsive' style={{ height: 100, width: 500 }}></img>
+                <div align="center">
+                    <img src={logo} className='img-responsive' style={{ height: 100, width: 500 }}></img>
                 </div>
             </div>
 
-            <div className="row"   style={{marginTop: 50,backgroundImage:`url(${back_v1})`}}>
-                <div className="col-sm-4" style={{border: '1px solid grey' }}>
-                <h3>News and Latest Updates</h3>
-                    <marquee direction="up" height="500px" width="100%" scrollamount="2">
+            <div className="row" style={{ marginTop: 50, backgroundImage: `url(${back_v1})` }}>
+                <div className="col-sm-4" style={{ border: '1px solid grey' }}>
+                    <h3>News and Latest Updates</h3>
+                    {isSuccess?
+                    <marquee direction="up" height="500px" width="100%" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();" >
                         {
-                            
+
                             meetings.map(
                                 (meeting, index) =>   //index is inbuilt variable of map started with 0
-                                    <ul>
+                                   
 
-                                        <li>Start date :  {meeting.meetStartDate}  End Date :  {meeting.meetEndDate}<br></br> Title : {meeting.meetTitle}</li>
-
-                                    </ul>
+                                       <div> {meeting.meetTitle}
+                                            <button type="link" className="btn btn-link" data-toggle="modal" data-target="#showData" onClick={() => showMeetingById(meeting.meetId)}>Click here</button>
+                                        
+                                            </div>
+                                   
                             )
                         }
                     </marquee>
+                    :<h4><br></br><br></br>No Data Found</h4>}
                 </div>
                 <div className="col-sm-4" style={{ marginTop: 100 }}>
                     <div class="jumbotron">
@@ -157,12 +217,131 @@ export default function SignInComponent() {
                         </div>
                     </div>
                 </div>
-                <div className="col-sm-4" style={{border: '1px solid grey', height: 550}}>
+                <div className="col-sm-4" style={{ border: '1px solid grey', height: 550 }}>
                     <div className='calendar-container'>
                         <Calendar />
                     </div>
                 </div>
+
+                {/* Modal for show data when user click on view button */}
+                <div className="modal fade" id="showData" role="dialog">
+                    <div className="modal-dialog">
+
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                <h4 className="modal-title">Meeting Details</h4>
+                            </div>
+                            <div className="modal-body">
+                                <form className="form-horizontal">
+
+
+
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting Start Date Time:</label>
+                                        <div className="col-sm-8">
+                                            {meetStartDate}
+                                        </div>
+                                    </div>
+
+
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting End Date Time:</label>
+                                        <div className="col-sm-8">
+                                            {meetEndDate}
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-4" htmlFor="deptName" >Organiser Name:</label>
+                                        <div className="col-sm-8">
+                                            {meetCreatedByEmpName}
+                                        </div>
+                                    </div>
+
+
+
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-4" htmlFor="deptName" >Organiser Employee Id:</label>
+                                        <div className="col-sm-8">
+                                            {meetCreatedByEmpEId}
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-4" htmlFor="deptName" >Organisser Department Name:</label>
+                                        <div className="col-sm-8">
+                                            {meetCreatedByDeptName}
+                                        </div>
+                                    </div>
+
+
+
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-4" htmlFor="deptName" >Organiser Designation:</label>
+                                        <div className="col-sm-8">
+                                            {meetCreatedByDesigName}
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting Location:</label>
+                                        <div className="col-sm-8">
+                                            {meetVenue}
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting Title:</label>
+                                        <div className="col-sm-8">
+                                            {meetTitle}
+                                        </div>
+                                    </div>
+
+
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting Description:</label>
+                                        <div className="col-sm-8">
+                                            {meetDescription}
+                                        </div>
+                                    </div>
+
+
+
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting Status:</label>
+                                        <div className="col-sm-8">
+                                            {meetStatus}
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="control-label col-sm-4" htmlFor="reamrk" >Remark :</label>
+                                        <div className="col-sm-8">
+                                            {remark}
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div className="modal-footer">
+
+                                <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
+
+
         </div>
     );
 }
