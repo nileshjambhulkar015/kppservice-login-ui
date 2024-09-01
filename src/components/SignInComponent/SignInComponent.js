@@ -6,6 +6,11 @@ import logo from "../../images/logo.jpg"
 import back_v1 from "../../images/back_v1.jpg";
 import 'react-calendar/dist/Calendar.css';
 import '../../css/calendar.css'
+import Marquee from 'react-fast-marquee';
+import BulletinesComponent from './BulletinesComponent';
+import NewsComponent from './NewsComponent';
+import MeetingsComponent from './MeetingsComponent';
+import AnnounementsComponent from './AnnounementsComponent';
 export default function SignInComponent() {
     const [isSuccess, setIsSuccess] = useState(true)
     const [roleId, setRoleId] = useState('');
@@ -34,14 +39,18 @@ export default function SignInComponent() {
     const [remark, setRemark] = useState('');
 
 
+    const [announTypeId, setAnnounTypeId] = useState('');
+    const [announTypeName, setAnnounTypeName] = useState('');
+    const [announcements, setAnnouncements] = useState([])
+
     console.log(meetings)
 
-    const loadAllMeetingData = ()=>{
-        SignInService.getAllMeeting().then((res) => {
+    const loadAllMeetingData = () => {
+        SignInService.getAllAnnouncement_Bulletines().then((res) => {
             if (res.data.success) {
                 setIsSuccess(true);
-                setMeetings(res.data.responseData);
-          
+                setAnnouncements(res.data.responseData);
+
             } else {
                 setIsSuccess(false);
             }
@@ -54,7 +63,7 @@ export default function SignInComponent() {
 
     const showMeetingById = (e) => {
 
-        SignInService.getMeetingById(e).then(res => {
+        /*SignInService.getMeetingById(e).then(res => {
             let meeting = res.data;
             setMeetId(meeting.meetId)
             setMeetStartDate(meeting.meetStartDate)
@@ -75,7 +84,7 @@ export default function SignInComponent() {
             setRemark(meeting.remark)
 
         }
-        );
+        );*/
     }
 
     const employeeLogin = (e) => {
@@ -159,7 +168,12 @@ export default function SignInComponent() {
         // window.location.reload(); 
     }
 
-    
+
+    const clearLoginDetails = (e) => {
+        setUserName('')
+        setUserPassword('')
+                   }
+            
 
 
 
@@ -173,25 +187,19 @@ export default function SignInComponent() {
             </div>
 
             <div className="row" style={{ marginTop: 50, backgroundImage: `url(${back_v1})` }}>
-                <div className="col-sm-4" style={{ border: '1px solid grey' }}>
-                    <h3>News and Latest Updates</h3>
-                    {isSuccess?
-                    <marquee direction="up" height="500px" width="100%" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();" >
-                        {
+                <div className="col-sm-4">
+                
+               <div className="col-sm-12"  style={{ border: '1px solid grey',height:"300px", width:"100%" }}>
+                    <h4><u>Bulletins</u>  :</h4>
+                 
+                    <BulletinesComponent></BulletinesComponent>
+                   </div>
 
-                            meetings.map(
-                                (meeting, index) =>   //index is inbuilt variable of map started with 0
-                                   
-
-                                       <div> {meeting.meetTitle}
-                                            <button type="link" className="btn btn-link" data-toggle="modal" data-target="#showData" onClick={() => showMeetingById(meeting.meetId)}>Click here</button>
-                                        
-                                            </div>
-                                   
-                            )
-                        }
-                    </marquee>
-                    :<h4><br></br><br></br>No Data Found</h4>}
+                   <div className="col-sm-12"  style={{ border: '1px solid grey',height:"300px", width:"100%" }}>
+                    <h4><u>News </u>:</h4>
+                 
+                    <NewsComponent></NewsComponent>
+                   </div>
                 </div>
                 <div className="col-sm-4" style={{ marginTop: 100 }}>
                     <div class="jumbotron">
@@ -213,130 +221,25 @@ export default function SignInComponent() {
                         </form>
                         <div className="col-sm-offset-6">
                             <button type="submit" className="btn btn-success" data-dismiss="modal" onClick={() => employeeLogin(roleId, userName, userPassword)} > Submit</button>
-                            <button type="reset" className="btn btn-danger col-sm-offset-1" data-dismiss="modal">Clear</button>
+                            <button type="reset" className="btn btn-danger col-sm-offset-1" data-dismiss="modal" onClick={()=>clearLoginDetails()}>Clear</button>
                         </div>
                     </div>
                 </div>
-                <div className="col-sm-4" style={{ border: '1px solid grey', height: 550 }}>
-                    <div className='calendar-container'>
-                        <Calendar />
+                <div className="col-sm-4">
+               
+                
+                <div className="col-sm-12"  style={{ border: '1px solid grey',height:"300px", width:"100%" }}>
+                     <h4><u>Meetings </u>:</h4>
+                  
+                     <MeetingsComponent></MeetingsComponent>
                     </div>
-                </div>
-
-                {/* Modal for show data when user click on view button */}
-                <div className="modal fade" id="showData" role="dialog">
-                    <div className="modal-dialog">
-
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                <h4 className="modal-title">Meeting Details</h4>
-                            </div>
-                            <div className="modal-body">
-                                <form className="form-horizontal">
-
-
-
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting Start Date Time:</label>
-                                        <div className="col-sm-8">
-                                            {meetStartDate}
-                                        </div>
-                                    </div>
-
-
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting End Date Time:</label>
-                                        <div className="col-sm-8">
-                                            {meetEndDate}
-                                        </div>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-4" htmlFor="deptName" >Organiser Name:</label>
-                                        <div className="col-sm-8">
-                                            {meetCreatedByEmpName}
-                                        </div>
-                                    </div>
-
-
-
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-4" htmlFor="deptName" >Organiser Employee Id:</label>
-                                        <div className="col-sm-8">
-                                            {meetCreatedByEmpEId}
-                                        </div>
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-4" htmlFor="deptName" >Organisser Department Name:</label>
-                                        <div className="col-sm-8">
-                                            {meetCreatedByDeptName}
-                                        </div>
-                                    </div>
-
-
-
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-4" htmlFor="deptName" >Organiser Designation:</label>
-                                        <div className="col-sm-8">
-                                            {meetCreatedByDesigName}
-                                        </div>
-                                    </div>
-
-
-
-
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting Location:</label>
-                                        <div className="col-sm-8">
-                                            {meetVenue}
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting Title:</label>
-                                        <div className="col-sm-8">
-                                            {meetTitle}
-                                        </div>
-                                    </div>
-
-
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting Description:</label>
-                                        <div className="col-sm-8">
-                                            {meetDescription}
-                                        </div>
-                                    </div>
-
-
-
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-4" htmlFor="deptName" >Meeting Status:</label>
-                                        <div className="col-sm-8">
-                                            {meetStatus}
-                                        </div>
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="control-label col-sm-4" htmlFor="reamrk" >Remark :</label>
-                                        <div className="col-sm-8">
-                                            {remark}
-                                        </div>
-                                    </div>
-
-                                </form>
-                            </div>
-                            <div className="modal-footer">
-
-                                <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-
+ 
+                    <div className="col-sm-12"  style={{ border: '1px solid grey',height:"300px", width:"100%" }}>
+                     <h4><u>Announcements </u>:</h4>
+                  
+                     <AnnounementsComponent></AnnounementsComponent>
                     </div>
+                 
                 </div>
 
             </div>

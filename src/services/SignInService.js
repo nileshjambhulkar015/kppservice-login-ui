@@ -16,13 +16,31 @@ class SignInService{
 
 
     //load all meeting and bulletine
-    getAllMeeting() {      
-            return axios.get(BASE_URL_API+"/employee-meeting/all-meeting-id?statusCd=A")      
+    getAllAnnouncement_Bulletines() {      
+            return axios.get(BASE_URL_API+"/announcement/all-announ-id?announTypeId=1&statusCd=A")      
     }
 
+    
+    //load all meeting and bulletine
+    getAllAnnouncement_News() {      
+        return axios.get(BASE_URL_API+"/announcement/all-announ-id?announTypeId=2&statusCd=A")      
+}
+
+//load all meeting and bulletine
+getAllAnnouncement_Meeting() {      
+    return axios.get(BASE_URL_API+"/announcement/all-announ-id?announTypeId=3&statusCd=A")      
+}
+
+//load all meeting and bulletine
+getAllAnnouncement_Announcement() {      
+    return axios.get(BASE_URL_API+"/announcement/all-announ-id?announTypeId=4&statusCd=A")      
+}
+
+
     //when click on view button of UI
-    getMeetingById(meetingId) {
-            return axios.get(BASE_URL_API + `/employee-meeting/by-meeting-id?meetingId=${meetingId}&statusCd=A`)
+    getAnnouncementById(announId) {
+       
+            return axios.get(BASE_URL_API + `/announcement/by-announ-id?announId=${announId}&statusCd=A`)
     }
 
 }
