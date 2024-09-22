@@ -204,7 +204,10 @@ export default function SignInComponent() {
                 <div className="col-sm-4" style={{ marginTop: 100 }}>
                     <div class="jumbotron">
                         <h2 align="center">Login</h2>
-                        <form className="form-horizontal">
+                        <form className="form-horizontal" onSubmit={(e) => {
+                            e.preventDefault(); // Prevent default form submission
+                            employeeLogin(roleId, userName, userPassword);
+                        }}>
                             <div className="form-group">
                                 <label className="control-label col-sm-4" htmlFor="userName">User Name:</label>
                                 <div className="col-sm-5">
@@ -218,11 +221,12 @@ export default function SignInComponent() {
                                 </div>
                             </div>
 
-                        </form>
+                       
                         <div className="col-sm-offset-6">
                             <button type="submit" className="btn btn-success" data-dismiss="modal" onClick={() => employeeLogin(roleId, userName, userPassword)} > Submit</button>
                             <button type="reset" className="btn btn-danger col-sm-offset-1" data-dismiss="modal" onClick={()=>clearLoginDetails()}>Clear</button>
                         </div>
+                        </form>
                     </div>
                 </div>
                 <div className="col-sm-4">
