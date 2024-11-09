@@ -43,7 +43,7 @@ export default function SignInComponent() {
     const [announTypeName, setAnnounTypeName] = useState('');
     const [announcements, setAnnouncements] = useState([])
 
-    console.log(meetings)
+
 
     const loadAllMeetingData = () => {
         SignInService.getAllAnnouncement_Bulletines().then((res) => {
@@ -161,8 +161,8 @@ export default function SignInComponent() {
         }
 
         ).catch((err) => {
-            console.log("err=", err)
-            //  console.log(err.response.data.details)
+          
+          
             alert(err?.response?.data?.details)
         });
         // window.location.reload(); 
@@ -202,7 +202,7 @@ export default function SignInComponent() {
                    </div>
                 </div>
                 <div className="col-sm-4" style={{ marginTop: 100 }}>
-                    <div class="jumbotron">
+                    <div className="jumbotron">
                         <h2 align="center">Login</h2>
                         <form className="form-horizontal" onSubmit={(e) => {
                             e.preventDefault(); // Prevent default form submission

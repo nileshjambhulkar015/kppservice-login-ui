@@ -40,8 +40,6 @@ export default function NewsComponent() {
             if (res.data.success) {
                 setIsSuccess(true);
                 setAnnouncementsNews(res.data.responseData);
-                console.log("res.data.responseData : ", res.data.responseData)
-
             } else {
                 setIsSuccess(false);
             }
