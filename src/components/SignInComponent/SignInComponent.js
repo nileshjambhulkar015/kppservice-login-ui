@@ -110,6 +110,8 @@ export default function SignInComponent() {
                 if (res.data.responseData.roleId === 1)  //for GM
                     window.location.replace("http://localhost:3001/");
 
+      
+
 
                 if (res.data.responseData.roleId === 3)  //for Employee
                     window.location.replace("http://localhost:3006/");
@@ -119,6 +121,9 @@ export default function SignInComponent() {
 
                 if (res.data.responseData.roleId === 4)  //for GM
                     window.location.replace("http://localhost:3005/");
+
+                    if (res.data.responseData.roleId === 5)  //for GM
+                    window.location.replace("http://localhost:3006/");
 
                 /*
                 if (res.data.responseData.roleId === 1) //for GM 
