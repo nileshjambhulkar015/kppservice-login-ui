@@ -107,7 +107,7 @@ export default function SignInComponent() {
 
 
 
-                if (res.data.responseData.roleId === 1)  //for GM
+               if (res.data.responseData.roleId === 1)  //for GM
                     window.location.replace("http://localhost:3001/");
 
       
@@ -122,7 +122,7 @@ export default function SignInComponent() {
                 if (res.data.responseData.roleId === 4)  //for GM
                     window.location.replace("http://localhost:3005/");
 
-                    if (res.data.responseData.roleId === 5)  //for GM
+                    if (res.data.responseData.roleId === 5)  //for MANAGEMENT
                     window.location.replace("http://localhost:3006/");
 
                 /*
@@ -154,6 +154,9 @@ export default function SignInComponent() {
                        
                        if (res.data.responseData.roleId === 4) //for GM 
                    window.location.replace("http://192.162.3.51:8080/GM");
+
+                    if (res.data.responseData.roleId === 5)  //for Management
+                    window.location.replace("http://192.162.3.51:8080/MANAGEMENT");
    
                        */
 
