@@ -12,7 +12,7 @@ import NewsComponent from './NewsComponent';
 import MeetingsComponent from './MeetingsComponent';
 import AnnounementsComponent from './AnnounementsComponent';
 export default function SignInComponent() {
-    const [isSuccess, setIsSuccess] = useState(true)
+    const [isSuccess, setIsSuccess] = useState(false)
     const [roleId, setRoleId] = useState('');
     const [userName, setUserName] = useState('');
     const [userPassword, setUserPassword] = useState('');
@@ -37,6 +37,7 @@ export default function SignInComponent() {
     const [meetDescription, setMeetDescription] = useState('');
     const [meetStatus, setMeetStatus] = useState('');
     const [remark, setRemark] = useState('');
+    const [responseMessage, setResponseMessage] = useState('')
 
 
     const [announTypeId, setAnnounTypeId] = useState('');
@@ -85,6 +86,23 @@ export default function SignInComponent() {
 
         }
         );*/
+    }
+
+    const validateUserName=(e)=>{
+        setUserName(e);
+        console.log(e);
+
+        SignInService.validateUserName(userName).then(res => {
+            if (res.data.success) {
+                setIsSuccess(true)
+                setResponseMessage(res.data.responseMessage)
+              
+            } else{
+                setIsSuccess(false)
+                setResponseMessage(res.data.responseMessage)
+                alert(res.data.responseMessage)
+            }
+        });
     }
 
     const employeeLogin = (e) => {
@@ -180,6 +198,8 @@ export default function SignInComponent() {
     const clearLoginDetails = (e) => {
         setUserName('')
         setUserPassword('')
+        setIsSuccess(false)
+        setResponseMessage('')
                    }
             
 
@@ -220,9 +240,13 @@ export default function SignInComponent() {
                                 <label className="control-label col-sm-4" htmlFor="userName">User Name:</label>
                                 <div className="col-sm-5">
                                     <input type="text" className="form-control" id="userName" placeholder="Enter User Name here" value={userName} onChange={(e) => setUserName(e.target.value)} />
+                                    
                                 </div>
+                                <button type="button" className="btn btn-success" data-dismiss="modal" onClick={() => validateUserName(userName)} > Validate</button>
                             </div>
-                            <div className="form-group">
+                            {isSuccess ?(
+                                <>
+                                <div className="form-group">
                                 <label className="control-label col-sm-4" htmlFor="userPassword">Password:</label>
                                 <div className="col-sm-5">
                                     <input type="password" className="form-control" id="userPassword" placeholder="Enter Passeord Name here" value={userPassword} onChange={(e) => setUserPassword(e.target.value)} />
@@ -234,6 +258,9 @@ export default function SignInComponent() {
                             <button type="submit" className="btn btn-success" data-dismiss="modal" onClick={() => employeeLogin(roleId, userName, userPassword)} > Submit</button>
                             <button type="reset" className="btn btn-danger col-sm-offset-1" data-dismiss="modal" onClick={()=>clearLoginDetails()}>Clear</button>
                         </div>
+</>)
+                         
+                        : <h4>{responseMessage}</h4>}
                         </form>
                     </div>
                 </div>

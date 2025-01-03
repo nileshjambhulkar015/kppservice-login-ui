@@ -14,6 +14,12 @@ class SignInService{
         return axios.get(BASE_URL_API+"/login?userName="+userName+"&userPassword="+userPassword)
     }
 
+     //login employee based on role
+     validateUserName(userName){
+
+        return axios.get(BASE_URL_API+`/login/validate-user-name?userName=${userName}`)
+    }
+
 
     //load all meeting and bulletine
     getAllAnnouncement_Bulletines() {      
